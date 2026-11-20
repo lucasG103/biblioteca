@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autores - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Cadastro de Autores</h1>
+</header>
+
+<nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/livros}">Livros</a>
+    <a th:href="@{/autores}">Autores</a>
+    <a th:href="@{/categorias}">Categorias</a>
+    <a th:href="@{/usuarios}">Usuários</a>
+    <a th:href="@{/emprestimos}">Empréstimos</a>
+</nav>
+
+<main>
+    <h2>Novo autor</h2>
+
+    <form th:action="@{/autores}" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="nacionalidade">Nacionalidade:</label>
+        <input type="text" id="nacionalidade" name="nacionalidade" required>
+
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="dataNascimento" name="dataNascimento" required>
+
+        <button type="submit">Cadastrar autor</button>
+    </form>
+
+    <h2>Autores cadastrados</h2>
+
+    <ul>
+        <li th:each="a, iterStat : ${autores}">
+            <span th:text="|${a.nome} — ${a.nacionalidade} — ${a.dataNascimento}|"></span>
+
+            <form th:action="@{/autores/remover/{indice}(indice=${iterStat.index})}"
+                  method="post">
+                <button type="submit">Excluir</button>
+            </form>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>

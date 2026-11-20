@@ -1,33 +1,43 @@
 package com.lucas.biblioteca.controller;
+
+import com.lucas.biblioteca.model.Livro;
+import com.lucas.biblioteca.service.BibliotecaService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.lucas.biblioteca.model.Livro;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
+
 @Controller
 @RequestMapping("/livros")
 public class LivroController {
 
-    private final List<Livro> livros = new ArrayList<>();
+    private final BibliotecaService bibliotecaService;
+
+    public LivroController(BibliotecaService bibliotecaService) {
+        this.bibliotecaService = bibliotecaService;
+    }
 
     @GetMapping
     public String inicio(Model model) {
-        model.addAttribute("livros", livros);
-        return "livros/inicio";
-    }
-
-    @GetMapping("/novo")
-    public String novo() {
-        return "livros/form";
+        model.addAttribute("livros", bibliotecaService.getLivros());
+        return "livros/lista-livros";
     }
 
     @PostMapping
     public String cadastrar(@ModelAttribute Livro livro) {
-        livros.add(livro);
+        bibliotecaService.getLivros().add(livro);
+        return "redirect:/livros";
+    }
+
+    @PostMapping("/remover/{indice}")
+    public String remover(@PathVariable int indice) {
+        if (indice >= 0 && indice < bibliotecaService.getLivros().size()) {
+            bibliotecaService.getLivros().remove(indice);
+        }
+
         return "redirect:/livros";
     }
 }

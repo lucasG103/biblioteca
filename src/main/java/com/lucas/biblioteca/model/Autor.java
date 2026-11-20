@@ -1,5 +1,6 @@
 package com.lucas.biblioteca.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ public class Autor {
 
     private String nome;
     private String nacionalidade;
+    private LocalDate dataNascimento;
     private List<Livro> obras = new ArrayList<>();
 
     public String getNome() {
@@ -23,6 +25,14 @@ public class Autor {
 
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public List<Livro> getObras() {

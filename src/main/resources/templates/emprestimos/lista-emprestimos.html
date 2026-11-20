@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empréstimos - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Cadastro de Empréstimos</h1>
+</header>
+
+<nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/livros}">Livros</a>
+    <a th:href="@{/autores}">Autores</a>
+    <a th:href="@{/categorias}">Categorias</a>
+    <a th:href="@{/usuarios}">Usuários</a>
+    <a th:href="@{/emprestimos}">Empréstimos</a>
+</nav>
+
+<main>
+    <h2>Novo empréstimo</h2>
+
+    <form th:action="@{/emprestimos}" method="post">
+
+        <label for="livroIndice">Livro:</label>
+        <select id="livroIndice" name="livroIndice" required>
+            <option value="">Selecione um livro</option>
+            <option th:each="livro, iterStat : ${livros}"
+                    th:value="${iterStat.index}"
+                    th:text="${livro.titulo}">
+            </option>
+        </select>
+
+        <label for="usuarioIndice">Usuário:</label>
+        <select id="usuarioIndice" name="usuarioIndice" required>
+            <option value="">Selecione um usuário</option>
+            <option th:each="usuario, iterStat : ${usuarios}"
+                    th:value="${iterStat.index}"
+                    th:text="${usuario.nome}">
+            </option>
+        </select>
+
+        <label for="dataRetirada">Data de retirada:</label>
+        <input type="date" id="dataRetirada" name="dataRetirada" required>
+
+        <label for="dataDevolucao">Data de devolução:</label>
+        <input type="date" id="dataDevolucao" name="dataDevolucao" required>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="">Selecione</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Devolvido">Devolvido</option>
+            <option value="Atrasado">Atrasado</option>
+        </select>
+
+        <button type="submit">Cadastrar empréstimo</button>
+    </form>
+
+    <h2>Empréstimos cadastrados</h2>
+
+    <ul>
+        <li th:each="e, iterStat : ${emprestimos}">
+            <span th:text="|Livro: ${e.livro.titulo} — Usuário: ${e.usuario.nome} — Retirada: ${e.dataRetirada} — Devolução: ${e.dataDevolucao} — Status: ${e.status}|"></span>
+
+            <form th:action="@{/emprestimos/remover/{indice}(indice=${iterStat.index})}"
+                  method="post">
+                <button type="submit">Excluir</button>
+            </form>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>

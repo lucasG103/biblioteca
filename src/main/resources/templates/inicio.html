@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Biblioteca - Página Inicial</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Sistema de Biblioteca</h1>
+    <p>Gerenciamento de livros, autores, categorias, usuários e empréstimos.</p>
+</header>
+
+<nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/livros}">Livros</a>
+    <a th:href="@{/autores}">Autores</a>
+    <a th:href="@{/categorias}">Categorias</a>
+    <a th:href="@{/usuarios}">Usuários</a>
+    <a th:href="@{/emprestimos}">Empréstimos</a>
+</nav>
+
+<main>
+    <h2>Bem-vindo ao Sistema de Biblioteca!</h2>
+
+    <p>Selecione uma das opções abaixo para acessar o módulo desejado.</p>
+
+    <section>
+        <h3>Livros</h3>
+        <p>Cadastre, consulte e exclua livros.</p>
+        <a class="botao" th:href="@{/livros}">Acessar livros</a>
+    </section>
+
+    <section>
+        <h3>Autores</h3>
+        <p>Cadastre, consulte e exclua autores.</p>
+        <a class="botao" th:href="@{/autores}">Acessar autores</a>
+    </section>
+
+    <section>
+        <h3>Categorias</h3>
+        <p>Organize os livros por categorias.</p>
+        <a class="botao" th:href="@{/categorias}">Acessar categorias</a>
+    </section>
+
+    <section>
+        <h3>Usuários</h3>
+        <p>Gerencie os usuários da biblioteca.</p>
+        <a class="botao" th:href="@{/usuarios}">Acessar usuários</a>
+    </section>
+
+    <section>
+        <h3>Empréstimos</h3>
+        <p>Gerencie os empréstimos e devoluções.</p>
+        <a class="botao" th:href="@{/emprestimos}">Acessar empréstimos</a>
+    </section>
+</main>
+
+</body>
+</html>

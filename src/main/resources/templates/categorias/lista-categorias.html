@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Categorias - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Cadastro de Categorias</h1>
+</header>
+
+<nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/livros}">Livros</a>
+    <a th:href="@{/autores}">Autores</a>
+    <a th:href="@{/categorias}">Categorias</a>
+    <a th:href="@{/usuarios}">Usuários</a>
+    <a th:href="@{/emprestimos}">Empréstimos</a>
+</nav>
+
+<main>
+    <h2>Nova categoria</h2>
+
+    <form th:action="@{/categorias}" method="post">
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required>
+
+        <button type="submit">Cadastrar categoria</button>
+    </form>
+
+    <h2>Categorias cadastradas</h2>
+
+    <ul>
+        <li th:each="c, iterStat : ${categorias}">
+            <span th:text="|${c.nome} — ${c.descricao} — ${c.codigo}|"></span>
+
+            <form th:action="@{/categorias/remover/{indice}(indice=${iterStat.index})}"
+                  method="post">
+                <button type="submit">Excluir</button>
+            </form>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>

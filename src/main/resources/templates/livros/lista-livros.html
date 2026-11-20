@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Livros - Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<header>
+    <h1>Cadastro de Livros</h1>
+</header>
+
+<nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/livros}">Livros</a>
+    <a th:href="@{/autores}">Autores</a>
+    <a th:href="@{/categorias}">Categorias</a>
+    <a th:href="@{/usuarios}">Usuários</a>
+    <a th:href="@{/emprestimos}">Empréstimos</a>
+</nav>
+
+<main>
+    <h2>Novo livro</h2>
+
+    <form method="post" th:action="@{/livros}">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" required>
+
+        <button type="submit">Cadastrar livro</button>
+    </form>
+
+    <h2>Livros cadastrados</h2>
+
+    <ul>
+        <li th:each="l, iterStat : ${livros}">
+            <span th:text="|${l.titulo} — ${l.autor} (${l.isbn})|"></span>
+
+            <form th:action="@{/livros/remover/{indice}(indice=${iterStat.index})}"
+                  method="post">
+                <button type="submit">Excluir</button>
+            </form>
+        </li>
+    </ul>
+</main>
+
+</body>
+</html>
